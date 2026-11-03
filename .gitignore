@@ -1,0 +1,12 @@
+# Archivos compilados
+*.class
+build/
+dist/
+
+# Archivos privados de NetBeans
+nbproject/private/
+
+# Archivos temporales
+*.log
+.DS_Store
+Thumbs.db
