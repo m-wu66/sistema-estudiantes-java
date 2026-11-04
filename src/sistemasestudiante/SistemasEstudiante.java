@@ -1,12 +1,12 @@
 package sistemasestudiante;
 
+import java.util.Locale;
 import java.util.Scanner;
 
 public class SistemasEstudiante {
-    static Scanner sc = new Scanner(System.in);
+    static Scanner sc = new Scanner(System.in).useLocale(Locale.US);
     static EstudianteServicio servicio = new EstudianteServicio();
     public static void main(String[] args) {
-        
         
         int op;
         
@@ -20,9 +20,15 @@ public class SistemasEstudiante {
                             + "\n5. Eliminar estudiante"
                             +"\n6. Salir");
 
+            
             System.out.print("\nSelecciona una opcion: ");
-            op = sc.nextInt();
-
+            if(sc.hasNextInt() == false){
+                op = 0;
+                sc.nextLine();
+            }else{
+                op = sc.nextInt();
+            }
+            
             switch(op){
                 case 1:
                     registrarEstudiante();
@@ -52,16 +58,48 @@ public class SistemasEstudiante {
     
     public static void registrarEstudiante(){
         
-        System.out.print("\nIngresa la matricula: ");
+        while(true){
+            System.out.print("Ingresa la matricula: ");
+            if(sc.hasNextInt()){
+                break;
+            }
+            sc.next();
+            System.out.println("Error, vuelve a intentarlo");
+        }
         int matricula = sc.nextInt();
         sc.nextLine();
-        System.out.print("Ingresa el nombre: ");
-        String nombre = sc.nextLine();
-        System.out.print("Ingresar la edad: ");
-        int edad = sc.nextInt();
-        System.out.print("Ingresar el promedio: ");
-        float promedio = sc.nextFloat();
+        String nombre;
+        while(true){
+            System.out.print("Ingresa el nombre: ");
+            nombre = sc.nextLine();
+            if(nombre.trim().isEmpty()){
+                System.out.println("Error, vuelve a intentarlo");
+            }else{
+                break;
+            }
+            
+        }
         
+        while(true){
+            System.out.print("Ingresar la edad: ");
+            if(sc.hasNextInt()){
+                break;
+            }
+            sc.next();
+            System.out.println("Error, vuelve a intentarlo");
+        }
+        int edad = sc.nextInt();
+        
+        while(true){
+            System.out.print("Ingresar el promedio: ");
+            if(sc.hasNextFloat()){
+                break;
+            }
+            sc.next();
+            System.out.println("Error, vuelve a intentarlo");
+        }
+        float promedio = sc.nextFloat();
+        sc.nextLine();
         try{
             Estudiante estudiante = new Estudiante(matricula, nombre, edad, promedio);
             if(servicio.agregarEstudiante(estudiante)){
@@ -75,7 +113,14 @@ public class SistemasEstudiante {
     }
     
     public static void encontrarEstudiante(){
-        System.out.print("\nIngresa la matricula del estudiante: ");
+        while(true){
+            System.out.print("\nIngresa la matricula del estudiante: ");
+            if(sc.hasNextInt()){
+                break;
+            }
+            sc.next();
+            System.out.println("Error, vuelve a intentarlo");
+        }
         int m = sc.nextInt();
         Estudiante es = servicio.buscarEstudiante(m);
         if(es == null){
@@ -86,20 +131,52 @@ public class SistemasEstudiante {
     }
     
     public static void actualizarEstudiante(){
-        System.out.print("\nIngresa la matricula del estudiante: ");
+         while(true){
+            System.out.print("\nIngresa la matricula del estudiante: ");
+            if(sc.hasNextInt()){
+                break;
+            }
+            sc.next();
+            System.out.println("Error, vuelve a intentarlo");
+        }
         int matricula = sc.nextInt();
+        sc.nextLine();
         if(servicio.buscarEstudiante(matricula) == null){
             System.out.println("No existe registro de ese alumno");
             return;
         }
-        sc.nextLine();
-        System.out.print("Ingresa el nuevo nombre: ");
-        String nombre = sc.nextLine();
-        System.out.print("Ingresa la nueva edad: ");
-        int edad = sc.nextInt();
-        System.out.print("Ingresa el nuevo promedio: ");
-        float promedio = sc.nextFloat();
         
+        String nombre;
+        while(true){
+            System.out.print("Ingresa el nuevo nombre: ");
+            nombre = sc.nextLine();
+            if(nombre.trim().isEmpty()){
+                System.out.println("Error, vuelve a intentarlo");
+            }else{
+                break;
+            }
+        }
+        
+        while(true){
+            System.out.print("Ingresa la nueva edad: ");
+            if(sc.hasNextInt()){
+                break;
+            }
+            sc.next();
+            System.out.println("Error, vuelve a intentarlo");
+        }
+        int edad = sc.nextInt();
+        
+        while(true){
+            System.out.print("Ingresa el nuevo promedio: ");
+            if(sc.hasNextFloat()){
+                break;
+            }
+            sc.next();
+            System.out.println("Error, vuelve a intentarlo");
+        }
+        float promedio = sc.nextFloat();
+        sc.nextLine();
         boolean actualizado = servicio.actualizarEstudiante(matricula, nombre, edad, promedio);
 
         if (actualizado) {
@@ -110,7 +187,14 @@ public class SistemasEstudiante {
     }
 
     public static void eliminarEstudiante(){
-        System.out.print("\nIngresa la matricula del alumno: ");
+        while(true){
+            System.out.print("\nIngresa la matricula del estudiante: ");
+            if(sc.hasNextInt()){
+                break;
+            }
+            sc.next();
+            System.out.println("Error, vuelve a intentarlo");
+        }
         int m = sc.nextInt();
         if(servicio.eliminarEstudiante(m)){
             System.out.println("Se ha eliminado el registro del estudiante");
