@@ -63,6 +63,6 @@ public class Estudiante {
 
     @Override
     public String toString() {
-        return "Estudiante: " +nombre+ "\nMatricula: " + matricula + "\nEdad: " + edad + "\nPromedio: " + promedio;
+        return "\nEstudiante: " +nombre+ "\nMatricula: " + matricula + "\nEdad: " + edad + "\nPromedio: " + promedio;
     }
 }

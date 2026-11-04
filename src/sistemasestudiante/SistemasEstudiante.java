@@ -25,34 +25,34 @@ public class SistemasEstudiante {
 
             switch(op){
                 case 1:
-                    System.out.println(registrarEstudiante());
+                    registrarEstudiante();
                     break;
                 case 2:
-                    System.out.println("Has seleccionado mostrar estudiantes");
+                    servicio.mostrarEstudiantes();
                     break;
                 case 3:
-                    System.out.println("Has seleccionado buscar estudiante");
+                    encontrarEstudiante();
                     break;
                 case 4:
-                    System.out.println("Has seleccionado actualizar estudiante");
+                    actualizarEstudiante();
                     break;
                 case 5:
-                    System.out.println("Has seleccionado eliminar estudiante");
+                    eliminarEstudiante();
                     break;
                 case 6:
-                    System.out.println("Has seleccionado salir");
+                    System.out.println("Hasta pronto");
                     break;
                 default:
-                    System.out.println("No se encuentra esa opcion");
+                    System.out.println("Opcion invalida");
             }
             
         }while(op != 6);
     sc.close();
     }
     
-    public static String registrarEstudiante(){
+    public static void registrarEstudiante(){
         
-        System.out.print("Ingresa la matricula: ");
+        System.out.print("\nIngresa la matricula: ");
         int matricula = sc.nextInt();
         sc.nextLine();
         System.out.print("Ingresa el nombre: ");
@@ -65,11 +65,57 @@ public class SistemasEstudiante {
         try{
             Estudiante estudiante = new Estudiante(matricula, nombre, edad, promedio);
             if(servicio.agregarEstudiante(estudiante)){
-                return "Se registro correctamente";
-            }return "La matricula ya existe";
+                System.out.println("Se registro correctamente");
+                return;
+            }System.out.println("La matricula ya existe");
+            
         }catch(IllegalArgumentException e){
-            return "Error: "+e.getMessage();
+            System.out.println("Error: "+e.getMessage());
         }
     }
     
+    public static void encontrarEstudiante(){
+        System.out.print("\nIngresa la matricula del estudiante: ");
+        int m = sc.nextInt();
+        Estudiante es = servicio.buscarEstudiante(m);
+        if(es == null){
+            System.out.println("La matricula que ingresaste no existe");
+            return;
+        }
+        System.out.println(es);
+    }
+    
+    public static void actualizarEstudiante(){
+        System.out.print("\nIngresa la matricula del estudiante: ");
+        int matricula = sc.nextInt();
+        if(servicio.buscarEstudiante(matricula) == null){
+            System.out.println("No existe registro de ese alumno");
+            return;
+        }
+        sc.nextLine();
+        System.out.print("Ingresa el nuevo nombre: ");
+        String nombre = sc.nextLine();
+        System.out.print("Ingresa la nueva edad: ");
+        int edad = sc.nextInt();
+        System.out.print("Ingresa el nuevo promedio: ");
+        float promedio = sc.nextFloat();
+        
+        boolean actualizado = servicio.actualizarEstudiante(matricula, nombre, edad, promedio);
+
+        if (actualizado) {
+            System.out.println("Alumno actualizado");
+        } else {
+            System.out.println("No se pudo actualizar el alumno");
+        }
+    }
+
+    public static void eliminarEstudiante(){
+        System.out.print("\nIngresa la matricula del alumno: ");
+        int m = sc.nextInt();
+        if(servicio.eliminarEstudiante(m)){
+            System.out.println("Se ha eliminado el registro del estudiante");
+            return;
+        }
+        System.out.println("No existe registro de ese alumno");
+    }
 }

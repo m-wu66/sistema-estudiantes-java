@@ -15,8 +15,11 @@ public class EstudianteServicio {
     }
     
     public void mostrarEstudiantes(){
+        if(estudiantes.isEmpty()){
+            System.out.println("No hay estudiantes registrados");
+        }
         for(Estudiante est: estudiantes){
-            System.out.println(est.toString());
+            System.out.println(est);
             System.out.println("");
         }
     }
@@ -41,11 +44,17 @@ public class EstudianteServicio {
     
     public boolean actualizarEstudiante(int matricula, String nuevoNombre, int nuevaEdad, float nuevoPromedio){
         Estudiante estudiante = buscarEstudiante(matricula);
-        if(estudiante != null){
-            estudiante.setNombre(nuevoNombre);
-            estudiante.setEdad(nuevaEdad);
-            estudiante.setPromedio(nuevoPromedio);
+            if(estudiante == null){
+                return false;
+            }
+        try{
+            Estudiante estudianteTemporal = new Estudiante(matricula, nuevoNombre, nuevaEdad, nuevoPromedio);
+            estudiante.setNombre(estudianteTemporal.getNombre());
+            estudiante.setEdad(estudianteTemporal.getEdad());
+            estudiante.setPromedio(estudianteTemporal.getPromedio());
             return true;
+        }catch(IllegalArgumentException e){
+            System.out.println("Error: "+e.getMessage());
         }
     return false;
     }
