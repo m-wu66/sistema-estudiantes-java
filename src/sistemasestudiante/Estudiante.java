@@ -8,8 +8,8 @@ public class Estudiante {
     private float promedio;
 
     public Estudiante(int matricula, String nombre, int edad, float promedio) {
-        this.matricula = matricula;
-        this.nombre = nombre;
+        setMatricula(matricula);
+        setNombre(nombre);
         setEdad(edad);
         setPromedio(promedio);
     }
@@ -21,6 +21,8 @@ public class Estudiante {
     public void setPromedio(float promedio) {
         if(0 <= promedio && promedio <= 10){
             this.promedio = promedio;
+        }else{
+            throw new IllegalArgumentException("El promedio es invalido");
         }
     }
 
@@ -29,7 +31,11 @@ public class Estudiante {
     }
 
     public void setMatricula(int matricula) {
-        this.matricula = matricula;
+        if(matricula > 0){
+            this.matricula = matricula;
+        }else{
+            throw new IllegalArgumentException("Matricula invalida");
+        }
     }
 
     public String getNombre() {
@@ -37,7 +43,10 @@ public class Estudiante {
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        if(nombre == null || nombre.trim().isEmpty()){
+            throw new IllegalArgumentException("Nombre invalido");
+        }
+            this.nombre = nombre;
     }
 
     public int getEdad() {
@@ -47,6 +56,8 @@ public class Estudiante {
     public void setEdad(int edad) {
         if(edad > 0){
             this.edad = edad;
+        }else{
+            throw new IllegalArgumentException("La edad es invalida");
         }
     }
 

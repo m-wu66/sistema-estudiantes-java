@@ -1,26 +1,75 @@
 package sistemasestudiante;
+
+import java.util.Scanner;
+
 public class SistemasEstudiante {
+    static Scanner sc = new Scanner(System.in);
+    static EstudianteServicio servicio = new EstudianteServicio();
     public static void main(String[] args) {
-        EstudianteServicio es1 = new EstudianteServicio();
-        Estudiante e1 = new Estudiante(2233, "Dereck", 12, (float)7.88);
-        Estudiante e2 = new Estudiante(2244, "David", 13, (float)7.89);
-        Estudiante e3 = new Estudiante(2255, "Gisel", 14, (float)7.45);
         
-        es1.agregarEstudiante(e1);
-        es1.agregarEstudiante(e2);
-        es1.agregarEstudiante(e3);
-        es1.mostrarEstudiantes();
         
-        Estudiante buscar = es1.buscarEstudiante(2244);
-        System.out.println(buscar.toString());
+        int op;
         
-        System.out.println(es1.actualizarEstudiante(2244, "Regina", 21, (float)9.22));;
-        es1.mostrarEstudiantes();
+        System.out.println("== SISTEMA DE ESTUDIANTES ==");
         
-        System.out.println("Cambios");
-        System.out.println(es1.eliminarEstudiante(2255));;
-        System.out.println(es1.buscarEstudiante(2255));;
-        System.out.println(es1.eliminarEstudiante(4411));;
+        do{
+            System.out.println("\n1. Registrar estudiante"
+                            + "\n2. Mostrar estudiantes"
+                            + "\n3. buscar estudiante"
+                            + "\n4. Actualizar estudiante"
+                            + "\n5. Eliminar estudiante"
+                            +"\n6. Salir");
+
+            System.out.print("\nSelecciona una opcion: ");
+            op = sc.nextInt();
+
+            switch(op){
+                case 1:
+                    System.out.println(registrarEstudiante());
+                    break;
+                case 2:
+                    System.out.println("Has seleccionado mostrar estudiantes");
+                    break;
+                case 3:
+                    System.out.println("Has seleccionado buscar estudiante");
+                    break;
+                case 4:
+                    System.out.println("Has seleccionado actualizar estudiante");
+                    break;
+                case 5:
+                    System.out.println("Has seleccionado eliminar estudiante");
+                    break;
+                case 6:
+                    System.out.println("Has seleccionado salir");
+                    break;
+                default:
+                    System.out.println("No se encuentra esa opcion");
+            }
+            
+        }while(op != 6);
+    sc.close();
+    }
+    
+    public static String registrarEstudiante(){
+        
+        System.out.print("Ingresa la matricula: ");
+        int matricula = sc.nextInt();
+        sc.nextLine();
+        System.out.print("Ingresa el nombre: ");
+        String nombre = sc.nextLine();
+        System.out.print("Ingresar la edad: ");
+        int edad = sc.nextInt();
+        System.out.print("Ingresar el promedio: ");
+        float promedio = sc.nextFloat();
+        
+        try{
+            Estudiante estudiante = new Estudiante(matricula, nombre, edad, promedio);
+            if(servicio.agregarEstudiante(estudiante)){
+                return "Se registro correctamente";
+            }return "La matricula ya existe";
+        }catch(IllegalArgumentException e){
+            return "Error: "+e.getMessage();
+        }
     }
     
 }

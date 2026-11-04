@@ -6,8 +6,12 @@ import java.util.ArrayList;
 public class EstudianteServicio {
     private ArrayList<Estudiante> estudiantes = new ArrayList<>();
     
-    public void agregarEstudiante(Estudiante estudiante){
-        estudiantes.add(estudiante);
+    public boolean agregarEstudiante(Estudiante estudiante){
+        if(buscarEstudiante(estudiante.getMatricula()) != null){
+           return false;
+        }
+        estudiantes.add(estudiante); 
+    return true;
     }
     
     public void mostrarEstudiantes(){
