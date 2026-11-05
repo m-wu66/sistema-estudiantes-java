@@ -14,14 +14,9 @@ public class EstudianteServicio {
     return true;
     }
     
-    public void mostrarEstudiantes(){
-        if(estudiantes.isEmpty()){
-            System.out.println("No hay estudiantes registrados");
-        }
-        for(Estudiante est: estudiantes){
-            System.out.println(est);
-            System.out.println("");
-        }
+    public ArrayList<Estudiante> mostrarEstudiantes(){
+        ArrayList<Estudiante> estudiantesC = new ArrayList<>(estudiantes);
+    return  estudiantesC;
     }
     
     public Estudiante buscarEstudiante(int matricula){

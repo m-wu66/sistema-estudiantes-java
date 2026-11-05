@@ -1,5 +1,6 @@
 package sistemasestudiante;
 
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -34,7 +35,7 @@ public class SistemasEstudiante {
                     registrarEstudiante();
                     break;
                 case 2:
-                    servicio.mostrarEstudiantes();
+                    mostrarEstudiantes();
                     break;
                 case 3:
                     encontrarEstudiante();
@@ -109,6 +110,18 @@ public class SistemasEstudiante {
             
         }catch(IllegalArgumentException e){
             System.out.println("Error: "+e.getMessage());
+        }
+    }
+    
+    public static void mostrarEstudiantes(){
+        ArrayList<Estudiante> estudiantes = servicio.mostrarEstudiantes();
+        if(estudiantes.isEmpty()){
+            System.out.println("No hay ningun estudiante registrado");
+            return;
+        }
+        for(Estudiante estudiante: estudiantes){
+            System.out.println(estudiante);
+            System.out.println("");
         }
     }
     
