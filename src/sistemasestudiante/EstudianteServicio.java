@@ -15,21 +15,43 @@ public class EstudianteServicio {
     }
     
     public ArrayList<Estudiante> mostrarEstudiantes(){
-        ArrayList<Estudiante> estudiantesC = new ArrayList<>(estudiantes);
+        ArrayList<Estudiante> estudiantesC = new ArrayList<>();
+        for(Estudiante estudiante: estudiantes){
+            Estudiante estudianteC = new Estudiante(
+            estudiante.getMatricula(),
+            estudiante.getNombre(),
+            estudiante.getEdad(),
+            estudiante.getPromedio());
+            estudiantesC.add(estudianteC);
+        }
     return  estudiantesC;
     }
     
     public Estudiante buscarEstudiante(int matricula){
         for(Estudiante estudiante: estudiantes){
             if(estudiante.getMatricula() == matricula){
-                return estudiante;
+                return new Estudiante(
+                estudiante.getMatricula(),
+                estudiante.getNombre(),
+                estudiante.getEdad(),
+                estudiante.getPromedio());
+                    
             }
         }
         return null;
     }
     
+    private Estudiante buscarEstudianteOriginal(int matricula){
+        for(Estudiante estudiante: estudiantes){
+            if(estudiante.getMatricula() == matricula){
+                return estudiante;
+            }
+        }
+    return null;
+    }
+    
     public boolean eliminarEstudiante(int matricula){
-        Estudiante estudiante = buscarEstudiante(matricula);
+        Estudiante estudiante = buscarEstudianteOriginal(matricula);
         if(estudiante != null){
             estudiantes.remove(estudiante);
             return true;
@@ -38,7 +60,7 @@ public class EstudianteServicio {
     }
     
     public boolean actualizarEstudiante(int matricula, String nuevoNombre, int nuevaEdad, float nuevoPromedio){
-        Estudiante estudiante = buscarEstudiante(matricula);
+        Estudiante estudiante = buscarEstudianteOriginal(matricula);
             if(estudiante == null){
                 return false;
             }
