@@ -2,9 +2,13 @@
 *.class
 build/
 dist/
+target/
 
 # Archivos privados de NetBeans
 nbproject/private/
+
+# Configuración local de VS Code
+.vscode/
 
 # Archivos temporales
 *.log
